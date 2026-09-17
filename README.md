@@ -56,7 +56,7 @@ Handle messages and delegate to the menubar. You can also implement logic to tog
 ```go
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
     switch msg := msg.(type) {
-    case tea.KeyMsg:
+    case tea.KeyPressMsg:
         if msg.String() == "esc" {
             // Toggle focus logic
             if !m.menubar.Active {
@@ -81,7 +81,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 To correctly overlay dropdowns on top of your content without erasing the background, use `ViewDropdownLayers` and the `Overlay` helper.
 
 ```go
-func (m model) View() string {
+func (m model) View() tea.View {
     // Render the menubar
     bar := m.menubar.ViewBarWithRightSide("Status", m.width)
     
@@ -99,7 +99,7 @@ func (m model) View() string {
         }
     }
 
-    return fullView
+    return tea.NewView(fullView)
 }
 ```
 
